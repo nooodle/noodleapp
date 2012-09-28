@@ -1,29 +1,16 @@
 define(['jquery'], function($) {
   'use strict';
-  $(loader);
 
   var notifier = window.webkitNotifications;
 
-  var loader = function() {
-    var toggle_button = $('#notifications');
-    if ( !notification_allowed() ) {
-      toggle_button.show();
-    }
-
-    toggle_button.on('click', function() {
-      if ( !notification_allowed() ) {
-        notifier.requestPermission();
-      }
-    });
-
-    notify("Test", "Test Message");
-  };
+  var toggle_button = $('#notifications');
 
   var notify = function(title, message) {
+    console.log('Notification: ',title,message);
     try {
       if ( notification_allowed() ) {
         // no icon for now
-        notifier.createNotification(null, 'NoodleApp - ' + title, message);
+        notifier.createNotification(null, 'NoodleApp - ' + title, message).show();
       }
     } catch(error) {
       console.log(error);
@@ -38,5 +25,17 @@ define(['jquery'], function($) {
       return false;
     }
   };
+
+  if ( !notification_allowed() ) {
+    toggle_button.show();
+  }
+
+  toggle_button.on('click', function() {
+    console.log("requesting notification access");
+    if ( !notification_allowed() ) {
+      notifier.requestPermission();
+    }
+  });
+
 
 });
