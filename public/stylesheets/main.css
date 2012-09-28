@@ -154,54 +154,24 @@ header a:hover {
     opacity: 0.4;
 }
 
-header a#notifications.on {
-    background-color: #f00;
-}
-
-header a#notifications.on:hover {
-    background-color: #111;
-    opacity: 1.0;
-}
-
-#notifications-preview {
-    background-color: #111;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+header button#notifications {
+    font-family: 'Oswald';
+    background-color: #333;
+    border-radius: 5px;
+    color: #888;
+    float: right;
+    font-size: 15px;
+    margin: 1px 10px 0;
+    padding: 5px 8px;
+    border: 0;
+    line-height: 15px;
     display: none;
-    opacity: 0.9;
-    padding: 6px;
-    position: fixed;
-    right: 10px;
-    top: 32px;
-    width: 260px;
-    z-index: 5;
 }
 
-#notifications-preview li a.notification-item {
-    background-color: #222;
-    border-radius: 3px;
+header button#notifications:hover {
+    background-color: #888;
     color: #eee;
-    display: block;
-    font-family: Arial;
-    font-size: 13px;
-    line-height: 16px;
-    margin: 0 0 3px 0;
-    padding: 5px 0 7px;
-    text-decoration: none;
-    text-shadow: #111 1px 1px 3px;
-}
-
-#notifications-preview li a:hover {
-    background-color: #000;
-}
-
-#notifications-preview li h2 {
-    margin-bottom: 3px;
-    padding: 3px 5px;
-}
-
-#notifications-preview li a span {
-    overflow: hidden;
+    cursor: pointer;
 }
 
 #dashboard {
