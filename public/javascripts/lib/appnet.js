@@ -1,6 +1,6 @@
 'use strict';
 
-define(['jquery', 'version-timeout'],
+define(['jquery', 'version-timeout', 'jquery.autocomplete'],
   function ($, versionTimeout) {
 
   var messages = $('ol.messages');
@@ -508,6 +508,41 @@ define(['jquery', 'version-timeout'],
       setMessage('/paginated/feed/' + userId + '/' + postId, 'GET', true);
     }
   };
+
+  /* Username Autocomplete
+   * Note: I have no idea where this goes but I'll puke it here for now.
+   * Note2: This pulls all your BFFs once and never again. Might want
+   * change that later.
+   */
+  var messageboxes = $('textarea[name=message]');
+  if (messageboxes.length > 0) {
+    $.ajax({
+        url: '/my/bffs',
+        type: 'GET',
+        dataType: 'json',
+        cache: false
+      }).done(function(data) {
+        var usernames = data.usernames;
+
+        // prepend '@' to every username
+        for(var i = 0, l = usernames.length; i < l; i++) {
+          usernames[i] = '@' + usernames[i];
+        }
+
+        // set up the automplete plugin
+        messageboxes.each(function() {
+          var textarea = $(this);
+
+          textarea.autocomplete({
+            delimiter: /\s+/,
+            onSelect: function() {
+              textarea.focus();
+            },
+            lookup: usernames
+          });
+        });
+      });
+    }
 
   return self;
 });
