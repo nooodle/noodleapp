@@ -5,25 +5,33 @@ define(['jquery'], function($) {
 
   var toggle_button = $('#notifications');
 
-  var notify = function(title, message) {
-    console.log('Notification: ',title,message);
-    try {
-      if ( notification_allowed() ) {
-        // no icon for now
-        notifier.createNotification(null, 'NoodleApp - ' + title, message).show();
-      }
-    } catch(error) {
-      console.log(error);
-    }
-  };
+  var self = {
 
-  var notification_allowed = function() {
-    var PERMISSION_ALLOWED = 0;
-    if ( notifier.checkPermission() === PERMISSION_ALLOWED ) {
-      return true;
-    } else {
-      return false;
+    sendNotifications: function(currentFeed) {
+
+    },
+
+    notify: function(title, message) {
+      console.log('Notification: ',title,message);
+      try {
+        if ( notification_allowed() ) {
+          // no icon for now
+          notifier.createNotification(null, 'NoodleApp - ' + title, message).show();
+        }
+      } catch(error) {
+        console.log(error);
+      }
+    },
+
+    notification_allowed: function() {
+      var PERMISSION_ALLOWED = 0;
+      if ( notifier.checkPermission() === PERMISSION_ALLOWED ) {
+        return true;
+      } else {
+        return false;
+      }
     }
+
   };
 
   if ( !notification_allowed() ) {
@@ -36,6 +44,7 @@ define(['jquery'], function($) {
       notifier.requestPermission();
     }
   });
+
 
 
 });

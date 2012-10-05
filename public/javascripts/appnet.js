@@ -1,7 +1,11 @@
 'use strict';
 
-define(['jquery', 'version-timeout', 'friends'],
-  function ($, versionTimeout, friends) {
+define(['jquery',
+       'version-timeout',
+       'notifications',
+       'friends',
+       'jquery.autocomplete'],
+  function ($, versionTimeout, friends, notifications) {
 
   var messages = $('ol.messages');
   var myFeed = $('.my-feed');
@@ -360,6 +364,7 @@ define(['jquery', 'version-timeout', 'friends'],
             document.title = '[' + newCount + '] ' + title;
             notifications.text(newCount);
             notifications.addClass('on');
+            notifications.sendNotifications();
           }
 
           currentMentionPostId = data.messages[data.messages.length - 1].id;
