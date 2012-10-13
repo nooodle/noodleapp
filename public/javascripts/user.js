@@ -1,7 +1,7 @@
 'use strict';
 
-define(['jquery'],
-  function ($) {
+define(['jquery', 'browser-notifications'],
+  function ($, browserNofications) {
 
   var overlay = $('#overlay');
   var flashMsg = $('#flash-message');
@@ -20,8 +20,10 @@ define(['jquery'],
         cache: false
 
       }).done(function(data) {
+        var notificationSetting = browserNofications.isSupported ? '<li><span id="browser-notifications"></span> <p>Enable browser notifications</p></li>' : '';
         var settingsList = $('<h1>Settings</h1><ol class="message-summary settings-details"><li><ul><li>' +
           '<span id="directed-feed"></span> <p>Include posts directed to users I don\'t follow</p></li>' +
+          notificationSetting +
           '<li><span id="media-on"></span> <p>Auto-embed media</p></li></ul></li><li class="close">Close</li></ol>');
 
         if (data.settings.directedFeed === 'true') {

@@ -1,55 +1,42 @@
-define(['jquery'], function($) {
-  'use strict';
+'use strict';
+
+define(function() {
+
+  var PERMISSION_ALLOWED = 0;
 
   var notifier = window.webkitNotifications;
 
-  var toggle_button = $('#notifications');
+  exports.isSupported = function() {
+    notifier;
+  },
 
-  var self = {
+  exports.sendNotification = function(user, messsage) {
+    this.notify('Mention from ' + user, message);
+  },
 
-    sendNotification: function(user, messsage) {
-      this.notify('Mention from ' + user, message);
-    },
-
-    notify: function(title, message) {
-      console.log('Notification: ',title,message);
-      try {
-        if (notificationsAllowed()) {
-          // no icon for now
-          notification = notifier.createNotification(null, 'NoodleApp - ' + title, message)
-          notification.show();
-        }
-      } catch(error) {
-        console.log(error);
+  exports.notify = function(title, message) {
+    console.log('Notification: ',title,message);
+    try {
+      if (notificationsAllowed()) {
+        // no icon for now
+        notification = notifier.createNotification(null, 'NoodleApp - ' + title, message)
+        notification.show();
       }
-    },
-
-    requestPermission: function() {
-      notifier.requestPermission();
-    },
-
-    notificationsAllowed: function() {
-      var PERMISSION_ALLOWED = 0;
-      if ( notifier.checkPermission() === PERMISSION_ALLOWED ) {
-        return true;
-      } else {
-        return false;
-      }
+    } catch(error) {
+      console.log(error);
     }
+  },
 
-  };
+  exports.requestPermission = function() {
+    notifier.requestPermission();
+  },
 
-  if ( !notification_allowed() ) {
-    toggle_button.show();
+  exports.notificationsAllowed = function() {
+    if ( notifier.checkPermission() === PERMISSION_ALLOWED ) {
+      return true;
+    } else {
+      return false;
+    }
   }
-
-  toggle_button.on('click', function() {
-    console.log("requesting notification access");
-    if ( !notification_allowed() ) {
-      notifier.requestPermission();
-    }
-  });
-
-
 
 });

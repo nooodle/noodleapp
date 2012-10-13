@@ -9,8 +9,8 @@ requirejs.config({
   }
 });
 
-define(['jquery', 'appnet', 'friends', 'user', 'notifications'],
-  function($, appnet, friends, user, notifications) {
+define(['jquery', 'appnet', 'friends', 'user', 'browser-notifications'],
+  function($, appnet, friends, user, browserNotifications) {
 
   var body = $('body');
   var url = $('body').data('url');
