@@ -7,23 +7,28 @@ define(['jquery'], function($) {
 
   var self = {
 
-    sendBrowserNotifications: function(user, messsage) {
-      this.notify('Mention', user + ": " + message);
+    sendNotification: function(user, messsage) {
+      this.notify('Mention from ' + user, message);
     },
 
     notify: function(title, message) {
       console.log('Notification: ',title,message);
       try {
-        if ( notification_allowed() ) {
+        if (notificationsAllowed()) {
           // no icon for now
-          notifier.createNotification(null, 'NoodleApp - ' + title, message).show();
+          notification = notifier.createNotification(null, 'NoodleApp - ' + title, message)
+          notification.show();
         }
       } catch(error) {
         console.log(error);
       }
     },
 
-    notification_allowed: function() {
+    requestPermission: function() {
+      notifier.requestPermission();
+    },
+
+    notificationsAllowed: function() {
       var PERMISSION_ALLOWED = 0;
       if ( notifier.checkPermission() === PERMISSION_ALLOWED ) {
         return true;
