@@ -7,8 +7,8 @@ define(['jquery'], function($) {
 
   var self = {
 
-    sendNotifications: function(currentFeed) {
-
+    sendBrowserNotifications: function(user, messsage) {
+      this.notify('Mention', user + ": " + message);
     },
 
     notify: function(title, message) {

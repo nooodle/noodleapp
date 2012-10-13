@@ -2,10 +2,10 @@
 
 define(['jquery',
        'version-timeout',
-       'notifications',
        'friends',
+       'browser-notifications',
        'jquery.autocomplete'],
-  function ($, versionTimeout, friends, notifications) {
+  function ($, versionTimeout, friends, browserNotifications) {
 
   var messages = $('ol.messages');
   var myFeed = $('.my-feed');
@@ -350,6 +350,7 @@ define(['jquery',
               messageItem.find('h2').text(data.messages[i].username);
               messageItem.find('p').html(data.messages[i].text);
               notificationsPreview.prepend(messageItem);
+              browserNotifications.sendNotification(messages[i].username, messages[i].text);
               notificationsPreview.find('> li:gt(' + (MESSAGE_LIMIT - 10) + ')').remove();
               newCount ++;
             }
@@ -364,7 +365,6 @@ define(['jquery',
             document.title = '[' + newCount + '] ' + title;
             notifications.text(newCount);
             notifications.addClass('on');
-            notifications.sendNotifications();
           }
 
           currentMentionPostId = data.messages[data.messages.length - 1].id;
