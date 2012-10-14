@@ -1,10 +1,11 @@
 'use strict';
 
-define(['jquery',
+define([
+       'jquery',
        'version-timeout',
        'friends',
-       'browser-notifications',
-       'jquery.autocomplete'],
+       'browser-notifications'
+       ],
   function ($, versionTimeout, friends, browserNotifications) {
 
   var messages = $('ol.messages');
@@ -341,6 +342,9 @@ define(['jquery',
       }).done(function(data) {
         if (data.messages.length > 0) {
           for (var i = 0; i < data.messages.length; i ++) {
+
+            browserNotifications.sendNotification(data.messages[i].username, data.messages[i].text);
+
             if (notificationsPreview.find('li a[data-postid="' + data.messages[i].id + '"]').length === 0) {
               var messageItem = $('<li><a class="notification-item" href="#" data-postid="" data-username="">' +
                 '<h2></h2><p></p></a></li>');
@@ -350,7 +354,6 @@ define(['jquery',
               messageItem.find('h2').text(data.messages[i].username);
               messageItem.find('p').html(data.messages[i].text);
               notificationsPreview.prepend(messageItem);
-              browserNotifications.sendNotification(messages[i].username, messages[i].text);
               notificationsPreview.find('> li:gt(' + (MESSAGE_LIMIT - 10) + ')').remove();
               newCount ++;
             }

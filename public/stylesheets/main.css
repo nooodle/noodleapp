@@ -365,11 +365,19 @@ ol.messages #paginated.loading {
     background-image: url('/images/settings-off.png');
 }
 
+#browser-notifications {
+    background-image: url('/images/settings-off.png');
+}
+
 #directed-feed.on {
     background-image: url('/images/settings-on.png');
 }
 
 #media-on.on {
+    background-image: url('/images/settings-on.png');
+}
+
+#browser-notifications.on {
     background-image: url('/images/settings-on.png');
 }
 

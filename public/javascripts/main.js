@@ -301,10 +301,11 @@ define(['jquery', 'appnet', 'friends', 'user', 'browser-notifications'],
     user.getSettings();
   });
 
-  body.on('click', '#directed-feed, #media-on', function() {
+  body.on('click', '#directed-feed, #media-on, #browser-notifications', function() {
     var self = $(this);
     var directedFeed = false;
     var mediaOn = false;
+    var browserNotificationsAllowed = (browserNotifications.notificationsAllowed() == 0);
 
     if (self.hasClass('on')) {
       self.removeClass('on');
@@ -318,6 +319,10 @@ define(['jquery', 'appnet', 'friends', 'user', 'browser-notifications'],
 
     if (overlay.find('#media-on').hasClass('on')) {
       mediaOn = true;
+    }
+
+    if (overlay.find('#browser-notifications').hasClass('on') && browserNofications.isSupported()) {
+      browserNotifications.requestPermission();
     }
 
     user.saveSettings(directedFeed, mediaOn, write.find('input[name="_csrf"]').val());

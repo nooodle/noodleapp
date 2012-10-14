@@ -20,7 +20,7 @@ define(['jquery', 'browser-notifications'],
         cache: false
 
       }).done(function(data) {
-        var notificationSetting = browserNofications.isSupported ? '<li><span id="browser-notifications"></span> <p>Enable browser notifications</p></li>' : '';
+        var notificationSetting = browserNofications.isSupported() ? '<li><span id="browser-notifications"></span> <p>Enable browser notifications</p></li>' : '';
         var settingsList = $('<h1>Settings</h1><ol class="message-summary settings-details"><li><ul><li>' +
           '<span id="directed-feed"></span> <p>Include posts directed to users I don\'t follow</p></li>' +
           notificationSetting +
@@ -29,6 +29,10 @@ define(['jquery', 'browser-notifications'],
         if (data.settings.directedFeed === 'true') {
           settingsList.find('#directed-feed').addClass('on');
           directedFeed = true;
+        }
+
+        if (browserNofications.notificationsAllowed() && browserNofications.isSupported()) {
+          settingsList.find('#browser-notifications').addClass('on');
         }
 
         if (data.settings.mediaOn === 'true') {
