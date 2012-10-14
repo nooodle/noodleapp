@@ -1,7 +1,12 @@
 'use strict';
 
-define(['jquery', 'version-timeout', 'friends'],
-  function ($, versionTimeout, friends) {
+define([
+       'jquery',
+       'version-timeout',
+       'friends',
+       'browser-notifications'
+       ],
+  function ($, versionTimeout, friends, browserNotifications) {
 
   var messages = $('ol.messages');
   var myFeed = $('.my-feed');
@@ -337,6 +342,9 @@ define(['jquery', 'version-timeout', 'friends'],
       }).done(function(data) {
         if (data.messages.length > 0) {
           for (var i = 0; i < data.messages.length; i ++) {
+
+            browserNotifications.sendNotification(data.messages[i].username, data.messages[i].text);
+
             if (notificationsPreview.find('li a[data-postid="' + data.messages[i].id + '"]').length === 0) {
               var messageItem = $('<li><a class="notification-item" href="#" data-postid="" data-username="">' +
                 '<h2></h2><p></p></a></li>');
